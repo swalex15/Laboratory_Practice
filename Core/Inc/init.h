@@ -1,10 +1,14 @@
 #ifndef INIT_H
 #define INIT_H
 
+#include "stm32f4xx.h"
+#include "stm32f429xx.h"
+// второй способ подключения библиотеки - #include "../../CMSIS/Devices/STM32F4xx/Inc/STM32F429xx/stm32f429xx.h"
+
 // *(uint32_t *)(0x40023800UL + 0x30UL) |= 0x02UL + 0x04UL; // Включение тактирования для переферии GPIO, регистр AHB1ENR
 // присваеваем значения к макросам
 
-#include <stdint.h>
+// #include <stdint.h>
 
 #define RCC_AHB1ENT             *(uint32_t *)(0x40023800UL + 0x30UL)
 #define RCC_GPIOB_EN            0x02UL
@@ -37,5 +41,8 @@
 #define BIT_SET(REG, BIT)       ((REG) |= (BIT))
 #define BIT_READ(REG, BIT)      ((REG) & (BIT))
 #define BIT_CLEAR(REG, BIT)     ((REG) &= ~(BIT))
+
+void GPIO_Init_With_Myself_Macros(void);
+void GPIO_Init_CMSIS(void);
 
 #endif
