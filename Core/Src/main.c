@@ -21,8 +21,8 @@ int main(void)
     {
  //         if (*(uint32_t *)(0x40020800UL + 0x10UL) & 0x2000UL)
         /*---Чтение кнопки с помощью CMSIS---*/
-        if(READ_BIT(GPIOG->IDR, GPIO_IDR_ID0)){
-            SET_BIT(GPIOE->BSRR, GPIO_BSRR_BR0); // Включение светододов PE0
+        if(READ_BIT(GPIOG->IDR, GPIO_IDR_ID1)){
+            SET_BIT(GPIOE->BSRR, GPIO_BSRR_BS0); // Включение светододов PE0
             }
         else{
             SET_BIT(GPIOE->BSRR, GPIO_BSRR_BR0);  // Отключение светододов PE0

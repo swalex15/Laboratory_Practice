@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\swalex\AppData\Local\Temp\ccFlXbtX.s 			page 1
+ARM GAS  C:\Users\swalex\AppData\Local\Temp\ccgbxEoP.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\swalex\AppData\Local\Temp\ccFlXbtX.s 			page 1
   10:Core/Src/main.c ****     
   11:Core/Src/main.c ****  //   RCC_EN;
   12:Core/Src/main.c ****  //   *(uint32_t *)(0x40023800UL + 0x30UL) |= 0x02UL + 0x04UL; // Включение тактиро
-ARM GAS  C:\Users\swalex\AppData\Local\Temp\ccFlXbtX.s 			page 2
+ARM GAS  C:\Users\swalex\AppData\Local\Temp\ccgbxEoP.s 			page 2
 
 
   13:Core/Src/main.c **** 
@@ -72,8 +72,8 @@ ARM GAS  C:\Users\swalex\AppData\Local\Temp\ccFlXbtX.s 			page 1
   21:Core/Src/main.c ****     {
   22:Core/Src/main.c ****  //         if (*(uint32_t *)(0x40020800UL + 0x10UL) & 0x2000UL)
   23:Core/Src/main.c ****         /*---Чтение кнопки с помощью CMSIS---*/
-  24:Core/Src/main.c ****         if(READ_BIT(GPIOG->IDR, GPIO_IDR_ID0)){
-  25:Core/Src/main.c ****             SET_BIT(GPIOE->BSRR, GPIO_BSRR_BR0); // Включение светододов PE0
+  24:Core/Src/main.c ****         if(READ_BIT(GPIOG->IDR, GPIO_IDR_ID1)){
+  25:Core/Src/main.c ****             SET_BIT(GPIOE->BSRR, GPIO_BSRR_BS0); // Включение светододов PE0
   26:Core/Src/main.c ****             }
   27:Core/Src/main.c ****         else{
   28:Core/Src/main.c ****             SET_BIT(GPIOE->BSRR, GPIO_BSRR_BR0);  // Отключение светододов PE0
@@ -98,27 +98,27 @@ ARM GAS  C:\Users\swalex\AppData\Local\Temp\ccFlXbtX.s 			page 1
   59              	.L2:
   20:Core/Src/main.c ****     {
   60              		.loc 1 20 5 view .LVU5
-  24:Core/Src/main.c ****             SET_BIT(GPIOE->BSRR, GPIO_BSRR_BR0); // Включение светододов PE0
+  24:Core/Src/main.c ****             SET_BIT(GPIOE->BSRR, GPIO_BSRR_BS0); // Включение светододов PE0
   61              		.loc 1 24 9 view .LVU6
-  24:Core/Src/main.c ****             SET_BIT(GPIOE->BSRR, GPIO_BSRR_BR0); // Включение светододов PE0
+  24:Core/Src/main.c ****             SET_BIT(GPIOE->BSRR, GPIO_BSRR_BS0); // Включение светододов PE0
   62              		.loc 1 24 12 is_stmt 0 view .LVU7
   63 0026 0E4B     		ldr	r3, .L9+8
   64 0028 1B69     		ldr	r3, [r3, #16]
-  24:Core/Src/main.c ****             SET_BIT(GPIOE->BSRR, GPIO_BSRR_BR0); // Включение светододов PE0
+  24:Core/Src/main.c ****             SET_BIT(GPIOE->BSRR, GPIO_BSRR_BS0); // Включение светододов PE0
   65              		.loc 1 24 11 view .LVU8
-  66 002a 13F0010F 		tst	r3, #1
+  66 002a 13F0020F 		tst	r3, #2
   67 002e EDD0     		beq	.L3
   25:Core/Src/main.c ****             }
   68              		.loc 1 25 13 is_stmt 1 view .LVU9
   69 0030 094A     		ldr	r2, .L9
   70 0032 9369     		ldr	r3, [r2, #24]
-  71 0034 43F48033 		orr	r3, r3, #65536
+  71 0034 43F00103 		orr	r3, r3, #1
   72 0038 9361     		str	r3, [r2, #24]
   73              	.L4:
   32:Core/Src/main.c ****  //           *(uint32_t *)(0x40020400UL + 0x18UL) |= 0x80UL; // Влючение светодио�
   74              		.loc 1 32 9 view .LVU10
   32:Core/Src/main.c ****  //           *(uint32_t *)(0x40020400UL + 0x18UL) |= 0x80UL; // Влючение светодио�
-ARM GAS  C:\Users\swalex\AppData\Local\Temp\ccFlXbtX.s 			page 3
+ARM GAS  C:\Users\swalex\AppData\Local\Temp\ccgbxEoP.s 			page 3
 
 
   75              		.loc 1 32 12 is_stmt 0 view .LVU11
@@ -153,14 +153,14 @@ ARM GAS  C:\Users\swalex\AppData\Local\Temp\ccFlXbtX.s 			page 1
   99              		.file 3 "C:/Tools/xpack-arm-none-eabi-gcc-13.2.1-1.1/arm-none-eabi/include/sys/_stdint.h"
  100              		.file 4 "CMSIS/Devices/STM32F4xx/Inc/STM32F429xx/stm32f429xx.h"
  101              		.file 5 "Core/Inc/init.h"
-ARM GAS  C:\Users\swalex\AppData\Local\Temp\ccFlXbtX.s 			page 4
+ARM GAS  C:\Users\swalex\AppData\Local\Temp\ccgbxEoP.s 			page 4
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\swalex\AppData\Local\Temp\ccFlXbtX.s:21     .text.main:00000000 $t
-C:\Users\swalex\AppData\Local\Temp\ccFlXbtX.s:27     .text.main:00000000 main
-C:\Users\swalex\AppData\Local\Temp\ccFlXbtX.s:90     .text.main:00000058 $d
+C:\Users\swalex\AppData\Local\Temp\ccgbxEoP.s:21     .text.main:00000000 $t
+C:\Users\swalex\AppData\Local\Temp\ccgbxEoP.s:27     .text.main:00000000 main
+C:\Users\swalex\AppData\Local\Temp\ccgbxEoP.s:90     .text.main:00000058 $d
 
 UNDEFINED SYMBOLS
 GPIO_Init_With_Myself_Macros
