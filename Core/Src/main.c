@@ -1,42 +1,88 @@
-#include "init.h"
-
-#define RCC_EN *(uint32_t *)(0x40023800UL + 0x30UL) |= 0x02UL + 0x04UL;
 
 
-int main(void)
+#include "main.h"
+
+// Объявляем переменные
+
+volatile uint32_t delayTimerValue = 0;
+volatile uint8_t num_leds = 1;
+
+
+uint32_t last_button2_time = 0;
+uint8_t btn2_z = 1;
+uint8_t count =4, count_button_1 =0;
+uint8_t mode =0;
+
+
+void SysTick_Handler(void)
 {
-  GPIO_Init_With_Myself_Macros();
-  GPIO_Init_CMSIS();
-    
- //   RCC_EN;
- //   *(uint32_t *)(0x40023800UL + 0x30UL) |= 0x02UL + 0x04UL; // Включение тактирования для переферии GPIO, регистр AHB1ENR
-
- //   *(uint32_t *)(0x40020400UL + 0x00UL) |= 0x4000UL; // Настройка редима работы порта на выход, регистр MODER
- //   *(uint32_t *)(0x40020400UL + 0x04UL) &= ~0x80UL;   // Настройка режима выхода пина PB7 на push-pull, регистр OTYPER
- //   *(uint32_t *)(0x40020400UL + 0x08UL) |= 0x4000UL; // Настройка сокрости работы порта на среднюю, регистр OSPEED
-
- //   *(uint32_t *)(0x40020400UL + 0x18UL) |= 0x800000UL; // Предаварительное отключение светодиода, регистр BSRR
-
-    while (1)   
-    {
- //         if (*(uint32_t *)(0x40020800UL + 0x10UL) & 0x2000UL)
-        /*---Чтение кнопки с помощью CMSIS---*/
-        if(READ_BIT(GPIOG->IDR, GPIO_IDR_ID1)){
-            SET_BIT(GPIOE->BSRR, GPIO_BSRR_BS0); // Включение светододов PE0
-            }
-        else{
-            SET_BIT(GPIOE->BSRR, GPIO_BSRR_BR0);  // Отключение светододов PE0
-        }    
-
-        /*---Чтение кнопки с помощью собственных макросов---*/
-        if(BIT_READ(GPIOC_IDR, GPIO_PIN_13)){
- //           *(uint32_t *)(0x40020400UL + 0x18UL) |= 0x80UL; // Влючение светодиода, регистр BSRR
-            BIT_SET(GPIOB_BSRR, GPIO_PIN_SET_7); // Включение светододов PB7, регистр BSRR
-         }
-         else
-         {
-//             *(uint32_t *)(0x40020400UL + 0x18UL) |= 0x800000UL; // Отключение светодиода, регистр BSRR
-            BIT_SET(GPIOB_BSRR, GPIO_PIN_RESET_7);// Отключение светододов PB7, регистр BSRR
-         }
-    }
+	delayTimerValue--;
 }
+
+void delayMs(uint32_t delay)
+{
+	delayTimerValue = delay;
+
+	while(delayTimerValue);
+}
+
+void change_port_B(void)
+{
+	if( mode == 1)
+	{
+	    GPIOB->MODER &= ~(GPIO_MODER_MODER10);
+		 mode =0;
+	}
+	else
+	{
+		GPIOB->MODER &= ~(GPIO_MODER_MODER10);
+		GPIOB->MODER |= GPIO_MODER_MODE10_0;
+		 mode =1;
+	}
+}
+void Leds_count (uint8_t h)
+{
+  switch (h) {
+
+  case 0:	Led_Red_ON; /*Led_Yellow_OFF; Led_Green_OFF;*/	break;
+  case 1:   Led_Yellow_ON;/* Led_Red_OFF; Led_Green_OFF;*/  break;
+  case 2:   Led_Green_ON;/* Led_Red_OFF;Led_Yellow_OFF; */   break;
+  case 3:   all_leds_off;  break;
+ }
+}
+int main (void)
+{
+  RCC_init();
+  GPIO_init();
+  delayMs(1000);
+
+   while(1)
+   {
+	   uint32_t current_time = SysTick->VAL;
+
+	   // Чтение кнопок
+	   uint8_t btn2_state = (GPIOA->IDR & GPIO_IDR_IDR_10) ? 0 : 1;
+
+
+       if (btn2_state && (current_time - last_button2_time >Button_Delay))
+       {
+           last_button2_time = current_time;
+           delayMs(50);
+
+          if(btn2_z == 1)
+          {
+           if(count_button_1 == 5)
+           {
+        	   change_port_B();
+        	   count_button_1 = 0;
+           }
+           btn2_z = 0;
+           count = (count +1)%4;
+           Leds_count(count);
+           count_button_1++;
+          }
+       }
+       if(btn2_state == 0) {btn2_z = 1;}
+   }
+}
+

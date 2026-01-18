@@ -47,6 +47,10 @@ else ifeq ($(TARGET_SERIES)$(TARGET_VERSION), STM32F429ZI)
 else ifeq ($(TARGET_SERIES)$(TARGET_VERSION), STM32F446RE)
 	BUILD_DIR = build_F446RE
 endif
+######################################
+# selecting source
+######################################
+# C sources
 
 ifeq ($(TARGET_SERIES), STM32F103)
 	SYS = CMSIS/Devices/STM32F1xx/Src/system_stm32f1xx.c \ CMSIS/Devices/Src/syscalls.c \ CMSIS/Devices/Src/sysmem.c
@@ -132,7 +136,6 @@ C_SOURCES =  \
 $(SYS) \
 Core/Src/main.c \
 Core/Src/init.c \
-
 # ASM sources
 ASM_SOURCES =  \
 $(ASM)
@@ -252,7 +255,7 @@ $(BUILD_DIR)/$(TARGET_SERIES)$(TARGET_VERSION).elf: $(OBJECTS) Makefile
 	@echo "-----------------------------------------------------"	
 
 $(BUILD_DIR):
-	@"mkdir" $@
+	@mkdir $@
 
 #######################################
 # clean up
